@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "608635862164",
+    "project_id": "masterapp-f23d5",
+    "storage_bucket": "masterapp-f23d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608635862164:android:a5cbbaa9187187a0004881",
+        "android_client_info": {
+          "package_name": "com.shubham.masterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608635862164-vi5q8foscvd718vq8iapvmcdmd8f6b6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi5btenBejVmxbrzFMzetB2zl_7lE8hIA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608635862164-vi5q8foscvd718vq8iapvmcdmd8f6b6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
