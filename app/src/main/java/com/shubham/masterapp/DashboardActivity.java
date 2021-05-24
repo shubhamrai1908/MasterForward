@@ -93,7 +93,7 @@ public class DashboardActivity extends AppCompatActivity {
 
                 }catch (Exception e1)
                 {
-                    Toast.makeText(getApplicationContext(),e1.toString(),Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(),e1.toString(),Toast.LENGTH_LONG).show();
                 }
             }
         });
