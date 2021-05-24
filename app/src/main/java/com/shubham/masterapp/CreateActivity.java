@@ -91,6 +91,7 @@ public class CreateActivity extends AppCompatActivity {
                             user.put("Name",name);
                             user.put("Phone",phone);
                             user.put("Email",email);
+                            user.put("Photo","");
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
