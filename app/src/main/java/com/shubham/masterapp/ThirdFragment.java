@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +62,19 @@ public class ThirdFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_third, container, false);
+        View rootView= inflater.inflate(R.layout.fragment_first, container, false);
+        ListView lv = (ListView)rootView.findViewById(R.id.listView);
+        ArrayList<Data> dataList=new ArrayList<>();
+        Data D=new Data();
+        dataList.add(D);
+        dataList.add(D);
+        dataList.add(D);
+        dataList.add(D);
+        dataList.add(D);
+        dataList.add(D);
+
+        CustomAdapter customAdapter=new CustomAdapter(getActivity(),dataList);
+        lv.setAdapter(customAdapter);
+        return rootView;
     }
 }

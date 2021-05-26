@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
 
     }
 
@@ -56,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 // App has all permissions. Proceed ahead
+
 
         return true;
 
