@@ -3,11 +3,14 @@ package com.shubham.masterapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -45,9 +48,14 @@ public class DashboardActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_dashboard);
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            finish();
+        }
         name="Name";
         email="Email ID";
         phone="Phone Number";
+        link="";
         // Create a Cloud Storage reference from the app
 
 
@@ -88,6 +96,7 @@ public class DashboardActivity extends AppCompatActivity {
                     Name.setText(name);
                     Email.setText(email);
                     Phone.setText(phone);
+                    if(link.length()!=0)
                     Picasso.get().load(link).into(photo);
 
 
@@ -97,53 +106,90 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             }
         });
+        Fragment fragment=new DashboardFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+
 
        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+           Fragment fragment=new DashboardFragment();
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId())
                 {
+
                     case R.id.menu_pending_req:
-                        Toast.makeText(getApplicationContext(),"pending req",Toast.LENGTH_SHORT).show();
+                        fragment=new FirstFragment();
                         toolbar.setTitle("Pending Request");
-                        drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.menu_ground_rec:
-                        Toast.makeText(getApplicationContext(),"Ground Received",Toast.LENGTH_SHORT).show();
+                        fragment=new SecondFragment();
                         toolbar.setTitle("Ground Request");
-                        drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.menu_server_sent:
-                        Toast.makeText(getApplicationContext(),"Server Sent",Toast.LENGTH_SHORT).show();
+                        fragment=new ThirdFragment();
                         toolbar.setTitle("Server Request");
-                        drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.menu_server_ack:
-                        Toast.makeText(getApplicationContext(),"Server Reply",Toast.LENGTH_SHORT).show();
+                        fragment=new ForthFragment();
                         toolbar.setTitle("Server Reply");
-                        drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.menu_ground_ack:
-                        Toast.makeText(getApplicationContext(),"Ground Ack",Toast.LENGTH_SHORT).show();
+                        fragment=new FifthFragment();
                         toolbar.setTitle("Ground Reply");
-                        drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case R.id.menu_sign_out:
-                        Toast.makeText(getApplicationContext(),"Signed out successfully",Toast.LENGTH_SHORT).show();
-                        FirebaseAuth.getInstance().signOut();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                        finish();
-                        break;
+                        logOut();
 
                 }
+                getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
 
     }
-    public void getPhoto()
+    public void logOut()
     {
+        AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+        builder.setTitle(R.string.app_name);
+        builder.setIcon(R.mipmap.master);
+        builder.setMessage("Do you want to Sign Out?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(getApplicationContext(),"Signed out successfully",Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut();
+                        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                        finish();
 
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+        builder.setTitle(R.string.app_name);
+        builder.setIcon(R.mipmap.master);
+        builder.setMessage("Do you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
