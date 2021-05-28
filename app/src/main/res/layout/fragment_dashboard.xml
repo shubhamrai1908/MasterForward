@@ -8,6 +8,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/textview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Welcome Master User\n You can manage different Task\n Please go to Navigation Drawer"

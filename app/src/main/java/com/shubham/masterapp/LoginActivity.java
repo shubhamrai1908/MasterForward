@@ -3,6 +3,7 @@ package com.shubham.masterapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),DashboardActivity.class));
             finish();
         }
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,4 +112,5 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
 }

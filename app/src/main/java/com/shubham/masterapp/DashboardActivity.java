@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -54,6 +57,7 @@ public class DashboardActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),LoginActivity.class));
             finish();
         }
+
         name="Name";
         email="Email ID";
         phone="Phone Number";
@@ -71,6 +75,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
         Toolbar toolbar=findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.main);
 
         nav=findViewById(R.id.navmenu);
         headerView=nav.getHeaderView(0);
@@ -110,6 +115,24 @@ public class DashboardActivity extends AppCompatActivity {
         });
         Fragment fragment=new DashboardFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.start_service:
+                        startService();
+                        Toast.makeText(getApplicationContext(),"Background Service started",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.stop_service:
+                        stopService();
+                        Toast.makeText(getApplicationContext(),"Background Service stopped",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+
+            }
+        });
 
 
        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -141,6 +164,9 @@ public class DashboardActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_sign_out:
                         logOut();
+
+
+
 
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
@@ -174,6 +200,17 @@ public class DashboardActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    public void startService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        serviceIntent.putExtra("inputExtra", "MasterApp is Active in Background");
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+    public void stopService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        stopService(serviceIntent);
+    }
+
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
@@ -194,4 +231,5 @@ public class DashboardActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
 }

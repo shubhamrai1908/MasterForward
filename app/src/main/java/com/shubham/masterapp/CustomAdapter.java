@@ -45,13 +45,13 @@ public class CustomAdapter  extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             row = inflater.inflate(R.layout.list_view, null);
 
-            holder.id = (TextView) row.findViewById(R.id.id);
-            holder.sender = (TextView) row.findViewById(R.id.sender);
-            holder.requested = (TextView) row.findViewById(R.id.requested);
-            holder.operator = (TextView) row.findViewById(R.id.operator);
-            holder.ground = (TextView) row.findViewById(R.id.ground);
-            holder.message = (TextView) row.findViewById(R.id.message);
-            holder.time = (TextView) row.findViewById(R.id.time);
+            holder.id = row.findViewById(R.id.id);
+            holder.sender = row.findViewById(R.id.sender);
+            holder.requested = row.findViewById(R.id.requested);
+            holder.operator = row.findViewById(R.id.operator);
+            holder.ground = row.findViewById(R.id.ground);
+            holder.message = row.findViewById(R.id.message);
+            holder.time = row.findViewById(R.id.time);
             row.setTag(holder);
         }else {
             holder = (ViewHolder) row.getTag();

@@ -5,22 +5,22 @@ public class Data {
 
     public Data(String id, String sender, String requested, String operator, String ground, String message, String time) {
         this.id = id;
-        this.sender = sender;
-        this.requested = requested;
-        this.operator = operator;
-        this.ground = ground;
-        this.message = message;
-        this.time = time;
+        this.sender = "FROM: "+sender;
+        this.requested ="REQ FOR: "+ requested;
+        this.operator = "OPERATOR: "+ operator;
+        this.ground = "GROUND: "+ground;
+        this.message = "MESSAGE: " + message;
+        this.time = "TIME: "+ time;
     }
 
     public Data() {
         this.id = "1";
-        this.sender="+919340247090";
-        this.requested="+917587193970";
-        this.operator="AIRTEL";
-        this.ground="----";
-        this.message="JIO-+917587193970";
-        this.time="11-05-2021: 11:22:33";
+        this.sender="FROM: ";
+        this.requested="REQ FOR: ";
+        this.operator="OPERATOR: ";
+        this.ground="-----------------";
+        this.message="MESSAGE: ";
+        this.time="TIME: ";
     }
 
     public String getid() {

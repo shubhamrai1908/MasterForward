@@ -64,7 +64,7 @@ public class FirstFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_first, container, false);
-        ListView lv = (ListView)rootView.findViewById(R.id.listView);
+        ListView lv = rootView.findViewById(R.id.listView);
         ArrayList<Data> dataList=new ArrayList<>();
         Data D=new Data();
         dataList.add(D);
