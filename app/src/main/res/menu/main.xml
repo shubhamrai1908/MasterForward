@@ -11,4 +11,10 @@
         android:orderInCategory="100"
         android:title="Stop Service"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/add_ground"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_add"
+        android:title="Add Ground"
+        app:showAsAction="ifRoom" />
 </menu>

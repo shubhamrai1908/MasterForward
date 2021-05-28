@@ -12,6 +12,7 @@ public class MasterDatabase extends SQLiteOpenHelper {
     private static final String TABLE_NAME3 = "server_to_master_table";
     private static final String TABLE_NAME4 = "master_to_gnd_table";
     private static final String TABLE_NAME5 = "request_table";
+    private static final String TABLE_NAME6= "groundlist_table";
 
     MasterDatabase(Context context)
     {
@@ -25,11 +26,13 @@ public class MasterDatabase extends SQLiteOpenHelper {
         String createTable3 = "create table " + TABLE_NAME3 + "(id INTEGER PRIMARY KEY, server TEXT, req TEXT,op TEXT,msg TEXT,time TEXT)";
         String createTable4 = "create table " + TABLE_NAME4 + "(id INTEGER PRIMARY KEY, gnd TEXT, req TEXT,op TEXT,msg TEXT,time TEXT)";
         String createTable5 = "create table " + TABLE_NAME5 + "(id INTEGER PRIMARY KEY, gnd TEXT, req TEXT,op TEXT,time TEXT)";
+        String createTable6 = "create table " + TABLE_NAME6 + "(id INTEGER PRIMARY KEY, name TEXT,phone TEXT)";
         sqLiteDatabase.execSQL(createTable1);
         sqLiteDatabase.execSQL(createTable2);
         sqLiteDatabase.execSQL(createTable3);
         sqLiteDatabase.execSQL(createTable4);
         sqLiteDatabase.execSQL(createTable5);
+        sqLiteDatabase.execSQL(createTable6);
 
     }
 
@@ -40,6 +43,7 @@ public class MasterDatabase extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME3);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME4);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME5);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME6);
         onCreate(sqLiteDatabase);
 
     }
@@ -108,6 +112,16 @@ public class MasterDatabase extends SQLiteOpenHelper {
         sqLiteDatabase.close();
         return true;
     }
+    public boolean grounglistTable(String name,String phone)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name",name);
+        contentValues.put("phone",phone);
+        sqLiteDatabase.insert(TABLE_NAME6,null,contentValues);
+        sqLiteDatabase.close();
+        return true;
+    }
 
     public Cursor getAll(String TABLE_NAME)
     {
@@ -123,10 +137,12 @@ public class MasterDatabase extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DELETE FROM "+ TABLE_NAME + " WHERE id =" + id);
         sqLiteDatabase.close();
     }
+
     public void eraseData(String TABLE_NAME)
     {
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        sqLiteDatabase.delete(TABLE_NAME, null, null);
+        sqLiteDatabase.close();
 
     }
 }
