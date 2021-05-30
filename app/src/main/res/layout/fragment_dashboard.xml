@@ -3,15 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="60dp"
+    android:padding="20dp"
     tools:context=".DashboardFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Welcome Master User\n You can manage different Task\n Please go to Navigation Drawer"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Welcome Master User\n You can manage different Task\n Please go to Navigation Drawer."
         android:gravity="center_horizontal" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/menu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:hintTextColor="@color/purple_500"
+        android:hint="SELECT SIM CARD:">
 
+        <AutoCompleteTextView
+            android:id="@+id/sim"
+            android:shadowColor="@color/purple_500"
+            android:textColor="@color/purple_500"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:layout_gravity="bottom"
+        android:textColor="@color/purple_500"
+        android:textStyle="bold"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NOTE: Please Select your Preferred sim card from above option to send sms in future."/>
 </FrameLayout>

@@ -1,15 +1,28 @@
 package com.shubham.masterapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,11 +71,37 @@ public class DashboardFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View rootView= inflater.inflate(R.layout.fragment_dashboard, container, false);
+       // TextInputLayout textInputLayout= requireView().findViewById(R.id.menu);
+        final SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+        TextView textView=rootView.findViewById(R.id.tv);
+        AutoCompleteTextView autoCompleteTextView= rootView.findViewById(R.id.sim);
+        ArrayList<String> sim_cards=new ArrayList<>();
+        sim_cards.add("SIM-1");
+        sim_cards.add("SIM-2");
+        ArrayAdapter<String> stringArrayAdapter=new ArrayAdapter<>(getActivity(),R.layout.support_simple_spinner_dropdown_item,sim_cards);
+        autoCompleteTextView.setAdapter(stringArrayAdapter);
+        //autoCompleteTextView.setThreshold(1);
+        int pos = preferences.getInt("SelectedSim", -1);
+        if(pos>=0)
+        autoCompleteTextView.setText(sim_cards.get(pos),false);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                preferences.edit().putInt("SelectedSim",position).apply();
+                Toast.makeText(getActivity(),sim_cards.get(position)+" is Selected as Default sim",Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+
+        return rootView;
+        //return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
 
 }

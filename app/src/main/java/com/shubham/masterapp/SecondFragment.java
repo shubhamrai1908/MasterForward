@@ -1,5 +1,6 @@
 package com.shubham.masterapp;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -63,15 +64,16 @@ public class SecondFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView= inflater.inflate(R.layout.fragment_first, container, false);
+        MasterDatabase masterDatabase=new MasterDatabase(getActivity());
         ListView lv = rootView.findViewById(R.id.listView);
         ArrayList<Data> dataList=new ArrayList<>();
-        Data D=new Data();
-        dataList.add(D);
-        dataList.add(D);
-        dataList.add(D);
-        dataList.add(D);
-        dataList.add(D);
-        dataList.add(D);
+        Cursor cursor=masterDatabase.getAll("gnd_to_master_table");
+        if (cursor.moveToFirst()) {
+            do {
+                Data data=new Data(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),"",cursor.getString(4),cursor.getString(5));
+                dataList.add(data);
+            } while (cursor.moveToNext());
+        }
 
         CustomAdapter customAdapter=new CustomAdapter(getActivity(),dataList);
         lv.setAdapter(customAdapter);

@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }, false);
                     } else {
-                        showDialog("", "You have denied some permisiions. Allow all permisiions at [Setting] > [Permissions]", "Go to Settings",
+                        showDialog("", "You have denied some permissions. Allow all permissions at [Setting] > [Permissions]", "Go to Settings",
                                 new OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -111,11 +111,13 @@ public class MainActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     }
-                                }, "No, Exit app", new OnClickListener() {
+                                }, "Still Procced", new OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dialog.dismiss();
-                                        finish();
+                                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+
                                     }
                                 }, false);
                         break;
